@@ -15,9 +15,9 @@ new Bench.Suite({
     time: stats.iterations / stats.elapsed
   }),
   done: () => {
-    const min = Math.min(...results.map(res => res.time))
+    results.sort((res1, res2) => res1.time - res2.time)
     console.log('Results from reading node_modules:')
-    results.forEach(res => console.log(`  ${res.name}: ${res.time === min ? chalk.green(min) : res.time}`))
+    results.forEach((res, i) => console.log(`  ${res.name}: ${i === 0 ? chalk.green(res.time) : res.time}`))
   }
 })
   .bench('get-all-files', next => getAllFiles('node_modules').then(() => next()))

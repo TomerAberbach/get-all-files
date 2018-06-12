@@ -51,10 +51,10 @@ run `npm start` in the `benchmark` directory.
 Sample output (lower is less time):
 ```
 Results from reading node_modules:
-  fs-readdir-recursive: 0.08771929824561403
-  all-files-in-tree: 0.035211267605633804
-  recursive-files: 0.025380710659898477
-  recursive-readdir: 0.01937984496124031
-  get-all-files: 0.0111731843575419
-  recur-readdir: 0.013831258644536652
+  get-all-files: 0.011025358324145534
+  recur-readdir: 0.013531799729364006
+  recursive-readdir: 0.01763668430335097
+  recursive-files: 0.023923444976076555
+  all-files-in-tree: 0.033444816053511704
+  fs-readdir-recursive: 0.07518796992481203
 ```
