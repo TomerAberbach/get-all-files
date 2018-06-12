@@ -45,4 +45,16 @@ getAllFiles(
 
 ## Benchmarks
 
-Soon!
+To see the performance of this module in comparison to other similar modules clone the repository and
+run `npm start` in the `benchmark` directory.
+
+Sample output (lower is less time):
+```
+Results from reading node_modules:
+  fs-readdir-recursive: 0.08771929824561403
+  all-files-in-tree: 0.035211267605633804
+  recursive-files: 0.025380710659898477
+  recursive-readdir: 0.01937984496124031
+  get-all-files: 0.0111731843575419
+  recur-readdir: 0.013831258644536652
+```
