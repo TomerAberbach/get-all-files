@@ -1,1 +1,0 @@
-const getAllFiles = require('index')
