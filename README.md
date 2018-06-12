@@ -27,19 +27,19 @@ const getAllFiles = require('get-all-files')
 getAllFiles('path/to/dir/or/file').then(files => console.log(files))
 
 // All javascript files
-getAllFiles('path/to/dir/or/file', '*.js', { matchBase: true }).then(files => console.log(files))
+getAllFiles('path/to/dir/or/file', '*.js', {matchBase: true}).then(files => console.log(files))
 
 // All files where their path is all lowercase
 getAllFiles(
-  'path/to/a/dir/or/file', 
+  'path/to/a/dir/or/file',
   filename => filename.toLowerCase() === filename
-).then(files => console.log(files));
+).then(files => console.log(files))
 
 // A combination of options
 getAllFiles(
   'path/to/dir/or/file',
-  ['*.js', 'foo*', filename => filename.toLowerCase() === filename], 
-  { matchBase: true }
+  ['*.js', 'foo*', filename => filename.toLowerCase() === filename],
+  {matchBase: true}
 ).then(files => console.log(files))
 ```
 
