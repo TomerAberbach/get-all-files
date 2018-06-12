@@ -1,0 +1,31 @@
+{
+  "name": "get-all-files",
+  "version": "1.0.0",
+  "description": "A fast parallel stack-based readdir-recursively module with micromatch support.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TomerADev/get-all-files.git"
+  },
+  "keywords": [
+    "fs",
+    "recursive",
+    "readdir",
+    "micromatch",
+    "path",
+    "directory",
+    "files"
+  ],
+  "author": "Tomer Aberbach <tomeraberbach@gmail.com> (http://tomeraberbach.com)",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/TomerADev/get-all-files/blob/master/LICENSE.md"
+    }
+  ],
+  "dependencies": {
+    "micromatch": "^3.1.10",
+    "then-fs": "^2.0.0"
+  }
+}
