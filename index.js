@@ -53,7 +53,7 @@ module.exports = (filename, arr, opts) => {
           return next()
         })
     } else {
-      return paths
+      return Promise.resolve(paths)
     }
   })()
 }

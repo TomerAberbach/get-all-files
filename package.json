@@ -1,6 +1,6 @@
 {
   "name": "get-all-files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast parallel stack-based readdir-recursively module with micromatch support.",
   "main": "index.js",
   "repository": {
