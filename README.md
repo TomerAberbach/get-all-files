@@ -2,6 +2,10 @@
 
 A fast parallel stack-based readdir-recursively module with micromatch support.
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 ## getAllFiles
 
 If `filename` is a file, creates an array containing the file path.
