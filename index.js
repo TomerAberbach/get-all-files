@@ -14,7 +14,7 @@ const matcher = (arr, opts) => {
 
     arr.filter(val => typeof val === 'function').forEach(func => checks.push(func))
 
-    return filename => checks.every(check => check(filename))
+    return filename => checks.some(check => check(filename))
   } else {
     return () => true
   }
