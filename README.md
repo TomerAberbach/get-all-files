@@ -3,6 +3,7 @@
 A fast parallel stack-based readdir-recursively module with micromatch support.
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files?ref=badge_shield)
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -58,3 +59,6 @@ Results from reading node_modules:
   all-files-in-tree: 0.033444816053511704
   fs-readdir-recursive: 0.07518796992481203
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files?ref=badge_large)
