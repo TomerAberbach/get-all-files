@@ -1,6 +1,6 @@
 {
   "name": "get-all-files",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Tomer Aberbach <tomeraberbach@gmail.com> (https://tomeraberba.ch)",
   "description": "A fast parallel stack-based readdir-recursively module with micromatch support.",
   "keywords": [
