@@ -1,12 +1,8 @@
 {
   "name": "get-all-files",
   "version": "1.0.4",
+  "author": "Tomer Aberbach <tomeraberbach@gmail.com> (https://tomeraberba.ch)",
   "description": "A fast parallel stack-based readdir-recursively module with micromatch support.",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/TomerADev/get-all-files.git"
-  },
   "keywords": [
     "fs",
     "recursive",
@@ -16,16 +12,42 @@
     "directory",
     "files"
   ],
-  "author": "Tomer Aberbach <tomeraberbach@gmail.com> (http://tomeraberbach.com)",
+  "homepage": "https://github.com/TomerADev/get-all-files",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomerADev/get-all-files.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TomerADev/get-all-files/issues"
+  },
   "license": "MIT",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/TomerADev/get-all-files/blob/master/LICENSE"
-    }
+  "files": [
+    "index.js"
   ],
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && standard-markdown README.md && mocha",
+    "benchmark": "node benchmark.js",
+    "publish:git": "git add . && git push --follow-tags",
+    "publish:patch": "npm test && npm version patch -m \"%s\" && npm publish && npm run publish:git",
+    "publish:minor": "npm test && npm version minor -m \"%s\" && npm publish && npm run publish:git",
+    "publish:major": "npm test && npm version major -m \"%s\" && npm publish && npm run publish:git"
+  },
   "dependencies": {
     "micromatch": "^3.1.10",
     "then-fs": "^2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "standard": "*",
+    "standard-markdown": "*",
+    "should": "*",
+    "all-files-in-tree": "^1.1.2",
+    "chalk": "^2.4.1",
+    "fs-readdir-recursive": "^1.1.0",
+    "mini-bench": "^1.0.0",
+    "recur-readdir": "0.0.1",
+    "recursive-files": "^1.0.2",
+    "recursive-readdir": "^2.2.2"
   }
 }

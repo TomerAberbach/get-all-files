@@ -1,6 +1,6 @@
 const Bench = require('mini-bench')
 const chalk = require('chalk')
-const getAllFiles = require('get-all-files')
+const getAllFiles = require('./index')
 const recursiveReaddir = require('recursive-readdir')
 const recursiveFiles = require('recursive-files')
 const allFilesInTree = require('all-files-in-tree')

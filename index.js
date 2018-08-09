@@ -4,13 +4,16 @@ const mm = require('micromatch')
 
 const matcher = (arr, opts) => {
   if (arr) {
-    if (!Array.isArray(arr))
+    if (!Array.isArray(arr)) {
       arr = [arr]
+    }
 
     const checks = []
 
     const patterns = arr.filter(val => typeof val === 'string')
-    if (patterns.length > 0) checks.push(mm.matcher(patterns, opts || {}))
+    if (patterns.length > 0) {
+      checks.push(mm.matcher(patterns, opts || {}))
+    }
 
     arr.filter(val => typeof val === 'function').forEach(func => checks.push(func))
 
@@ -45,7 +48,9 @@ module.exports = (filename, arr, opts) => {
           if (stats.isDirectory()) {
             return fs.readdir(popped)
           } else {
-            if (check(popped)) paths.push(popped)
+            if (check(popped)) {
+              paths.push(popped)
+            }
             return []
           }
         }).then(names => {

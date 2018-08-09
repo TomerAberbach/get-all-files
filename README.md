@@ -1,52 +1,74 @@
 # Get All Files
 
-A fast parallel stack-based readdir-recursively module with micromatch support.
+[![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files) [![Build Status](https://img.shields.io/travis/TomerADev/get-all-files.svg)](https://travis-ci.org/TomerADev/get-all-files) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files?ref=badge_shield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+> A fast parallel stack-based readdir-recursively module with micromatch support.
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## Install
 
-## getAllFiles
+Install with [npm](https://www.npmjs.com):
 
-If `filename` is a file, creates an array containing the file path.
-Otherwise creates an array containing the file paths of all files recursively in the given directory.
+```sh
+$ npm i get-all-files --save
+```
 
-The array is filtered by the given glob pattern(s) and/or predicate(s) and returned as a promise.
+## Usage
 
-**Parameters:**
-* `filename` **{string}**: A path to a file or directory.
-* `arr` **{string|function|(string|function)[]}** (optional): A string glob pattern, a function taking a file path and returning a boolean, or an array of containing any number of of the former two options.
-* `opt` **{Object}** (optional): An options object for the [micromatch](https://www.npmjs.com/package/micromatch) module.
-
-
-Examples:
-```javascript
+```js
 const getAllFiles = require('get-all-files')
 
 // All files
-getAllFiles('path/to/dir/or/file').then(files => console.log(files))
+getAllFiles('path/to/dir/or/file').then(console.log)
 
-// All javascript files
-getAllFiles('path/to/dir/or/file', '*.js', {matchBase: true}).then(files => console.log(files))
+// All JavaScript files
+getAllFiles('path/to/dir/or/file', '*.js', {matchBase: true}).then(console.log)
 
 // All files where their path is all lowercase
 getAllFiles(
   'path/to/a/dir/or/file',
   filename => filename.toLowerCase() === filename
-).then(files => console.log(files))
+).then(console.log)
 
 // A combination of options
 getAllFiles(
   'path/to/dir/or/file',
   ['*.js', 'foo*', filename => filename.toLowerCase() === filename],
   {matchBase: true}
-).then(files => console.log(files))
+).then(console.log)
 ```
 
-## Benchmarks
+## Method
 
-To see the performance of this module in comparison to other similar modules clone the repository and
-run `npm start` in the `benchmark` directory.
+`getAllFiles(filename, arr, opt) -> Promise<Array<string>>`
+
+If the provided path is a file, an array containing the file path will be resolved in the promise. Otherwise it creates an array containing the file paths of all files recursively in the given directory.
+
+The array is filtered by the given glob pattern(s) and/or predicate(s) and returned as a promise.
+
+Parameters:
+ * `filename` : `string` - A path to a file or directory.
+ * `arr` : `string | function(filename) -> boolean | Array<string | function(filename) -> boolean>` (optional) - A string glob pattern, a function taking a file path and returning a boolean, or an array of containing any number of of the former two options.
+ * `opt` : `object` (optional) - An options object for the [micromatch](https://www.npmjs.com/package/micromatch) module.
+
+## Contributing
+
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerADev/get-all-files/issues/new).
+
+## Running Tests
+
+Install dev dependencies:
+
+```sh
+$ npm i -d && npm test
+```
+
+## Benchmarking
+
+Install dev dependencies:
+
+```sh
+$ npm i -d && npm run benchmark
+```
 
 Sample output (lower is less time):
 ```
@@ -58,3 +80,17 @@ Results from reading node_modules:
   all-files-in-tree: 0.033444816053511704
   fs-readdir-recursive: 0.07518796992481203
 ```
+
+## Author
+
+**Tomer Aberbach**
+
+* [Github](https://github.com/TomerADev)
+* [NPM](https://www.npmjs.com/~tomeraberbach)
+* [LinkedIn](https://www.linkedin.com/in/tomer-a)
+* [Website](https://tomeraberba.ch)
+
+## License
+
+Copyright © 2018 [Tomer Aberbach](https://github.com/TomerADev)
+Released under the [MIT license](https://github.com/TomerADev/get-all-files/blob/master/LICENSE).
