@@ -1,6 +1,6 @@
 # Get All Files
 
-[![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files) [![Build Status](https://img.shields.io/travis/TomerADev/get-all-files.svg)](https://travis-ci.org/TomerADev/get-all-files) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomerADev%2Fget-all-files?ref=badge_shield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files) [![Build Status](https://img.shields.io/travis/TomerADev/get-all-files.svg)](https://travis-ci.org/TomerADev/get-all-files) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > A fast parallel stack-based readdir-recursively module with micromatch support.
 
