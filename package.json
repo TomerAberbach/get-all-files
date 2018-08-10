@@ -12,13 +12,13 @@
     "directory",
     "files"
   ],
-  "homepage": "https://github.com/TomerADev/get-all-files",
+  "homepage": "https://github.com/TomerAberbach/get-all-files",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TomerADev/get-all-files.git"
+    "url": "git+https://github.com/TomerAberbach/get-all-files.git"
   },
   "bugs": {
-    "url": "https://github.com/TomerADev/get-all-files/issues"
+    "url": "https://github.com/TomerAberbach/get-all-files/issues"
   },
   "license": "MIT",
   "files": [

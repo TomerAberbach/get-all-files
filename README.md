@@ -1,6 +1,6 @@
 # Get All Files
 
-[![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files) [![Build Status](https://img.shields.io/travis/TomerADev/get-all-files.svg)](https://travis-ci.org/TomerADev/get-all-files) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files) [![Build Status](https://img.shields.io/travis/TomerAberbach/get-all-files.svg)](https://travis-ci.org/TomerAberbach/get-all-files) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > A fast parallel stack-based readdir-recursively module with micromatch support.
 
@@ -52,7 +52,7 @@ Parameters:
 
 ## Contributing
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerADev/get-all-files/issues/new).
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/get-all-files/issues/new).
 
 ## Running Tests
 
@@ -85,12 +85,12 @@ Results from reading node_modules:
 
 **Tomer Aberbach**
 
-* [Github](https://github.com/TomerADev)
+* [Github](https://github.com/TomerAberbach)
 * [NPM](https://www.npmjs.com/~tomeraberbach)
 * [LinkedIn](https://www.linkedin.com/in/tomer-a)
 * [Website](https://tomeraberba.ch)
 
 ## License
 
-Copyright © 2018 [Tomer Aberbach](https://github.com/TomerADev)
-Released under the [MIT license](https://github.com/TomerADev/get-all-files/blob/master/LICENSE).
+Copyright © 2018 [Tomer Aberbach](https://github.com/TomerAberbach)
+Released under the [MIT license](https://github.com/TomerAberbach/get-all-files/blob/master/LICENSE).
