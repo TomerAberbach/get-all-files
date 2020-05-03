@@ -1,53 +1,74 @@
 {
   "name": "get-all-files",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "author": "Tomer Aberbach <tomeraberbach@gmail.com> (https://tomeraberba.ch)",
-  "description": "A fast parallel stack-based readdir-recursively module with micromatch support.",
+  "description": "A blazing fast recursive directory crawler with lazy sync and async iterator support.",
   "keywords": [
     "fs",
     "recursive",
     "readdir",
-    "micromatch",
     "path",
     "directory",
-    "files"
+    "files",
+    "lazy",
+    "async",
+    "iterator",
+    "iterable"
   ],
   "homepage": "https://github.com/TomerAberbach/get-all-files",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TomerAberbach/get-all-files.git"
-  },
+  "repository": "TomerAberbach/get-all-files",
   "bugs": {
     "url": "https://github.com/TomerAberbach/get-all-files/issues"
   },
   "license": "MIT",
+  "main": "lib/get-all-files.js",
+  "module": "lib/get-all-files.mjs",
   "files": [
-    "index.js"
+    "lib"
   ],
-  "main": "index.js",
   "scripts": {
-    "test": "standard && standard-markdown README.md && mocha",
-    "benchmark": "node benchmark.js",
-    "publish:git": "git add . && git push --follow-tags",
-    "publish:patch": "npm test && npm version patch -m \"%s\" && npm publish && npm run publish:git",
-    "publish:minor": "npm test && npm version minor -m \"%s\" && npm publish && npm run publish:git",
-    "publish:major": "npm test && npm version major -m \"%s\" && npm publish && npm run publish:git"
-  },
-  "dependencies": {
-    "micromatch": "^3.1.10",
-    "then-fs": "^2.0.0"
+    "lint:eslint:base": "eslint -c ./eslint.config.js --cache --ext js --ignore-path .gitignore",
+    "lint:eslint": "pnpm run lint:eslint:base -- --fix .",
+    "lint:prettier:base": "prettier --loglevel silent",
+    "lint:prettier": "pnpm run lint:prettier:base -- --write .",
+    "lint": "run-s lint:*",
+    "test": "ava",
+    "build:main": "cross-env BABEL_ENV=main babel -o lib/get-all-files.js src/index.js",
+    "build:module": "cross-env BABEL_ENV=module babel -o lib/get-all-files.mjs src/index.js",
+    "build": "run-p build:*",
+    "benchmark": "babel-node src/benchmark.js"
   },
   "devDependencies": {
-    "mocha": "*",
-    "standard": "*",
-    "standard-markdown": "*",
-    "should": "*",
+    "@ava/babel": "^1.0.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0",
     "all-files-in-tree": "^1.1.2",
-    "chalk": "^2.4.1",
+    "ava": "^3.8.1",
+    "babel-eslint": "10.1.0",
+    "benny": "^3.6.14",
+    "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-ava": "10.3.0",
+    "eslint-plugin-prettier": "3.1.3",
+    "fdir": "^2.1.1",
     "fs-readdir-recursive": "^1.1.0",
-    "mini-bench": "^1.0.0",
-    "recur-readdir": "0.0.1",
+    "klaw-sync": "^6.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.0.5",
+    "recur-readdir": "^0.0.1",
     "recursive-files": "^1.0.2",
-    "recursive-readdir": "^2.2.2"
+    "recursive-fs": "^2.1.0",
+    "recursive-readdir": "^2.2.2",
+    "regenerator-runtime": "^0.13.5",
+    "rrdir": "^8.0.1",
+    "walk-sync": "^2.1.0"
+  },
+  "engines": {
+    "node": ">= 10"
   }
 }
