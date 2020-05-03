@@ -66,7 +66,7 @@ Returns a `Promise<string[]>` of file paths recursively found at `path` in no pa
 
 Type: `string`
 
-A path of file or directory to recursively find files in.
+A path to a file or directory to recursively find files in.
 
 #### `options`
 
