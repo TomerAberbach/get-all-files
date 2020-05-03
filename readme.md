@@ -76,14 +76,14 @@ Type: `object`
 
 ###### `resolve`
 
-Type: `boolean`
+Type: `boolean`\
 Default: `false`
 
 Whether to resolve paths to absolute paths (relative to `process.cwd()`).
 
 ###### `isExcludedDir`
 
-Type: `(dirname: string) => boolean`
+Type: `(dirname: string) => boolean`\
 Default: `() => false`
 
 A predicate that determines whether the directory with the given `dirname` should be crawled. There is no `isExcludedFile` option because you can exclude files by checking conditions while lazily iterating using`getAllFiles.sync` or `getAllFiles.async`.
