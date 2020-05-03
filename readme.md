@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/get-all-files.svg)](https://www.npmjs.com/package/get-all-files)
 
-> A blazing fast recursive directory crawler with sync and async iterator support.
+> A blazing fast recursive directory crawler with lazy sync and async iterator support.
 
 ## Install
 
