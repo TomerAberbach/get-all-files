@@ -114,7 +114,7 @@ function walk(dirnames, filenames, notifier, options) {
       notifier.resolve()
 
       if (--pending === 0) {
-        walk(children, filenames, notifier)
+        walk(children, filenames, notifier, options)
       }
     })
   }
