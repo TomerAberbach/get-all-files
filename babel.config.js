@@ -6,7 +6,7 @@ module.exports = context => ({
         targets: {
           node: 10
         },
-        modules: context.env(`format`) === `module` ? false : `commonjs`
+        modules: context.env() === `module` ? false : `commonjs`
       }
     ]
   ]
