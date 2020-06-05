@@ -1,6 +1,6 @@
 {
   "name": "get-all-files",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "author": "Tomer Aberbach <tomeraberbach@gmail.com> (https://tomeraberba.ch)",
   "description": "A blazing fast recursive directory crawler with lazy sync and async iterator support.",
   "keywords": [
