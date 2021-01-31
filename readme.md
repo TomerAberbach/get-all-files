@@ -90,4 +90,4 @@ A predicate that determines whether the directory with the given `dirname` shoul
 
 ## License
 
-[MIT](https://github.com/TomerAberbach/get-all-files/blob/master/license) © [Tomer Aberbach](https://github.com/TomerAberbach)
+[MIT](https://github.com/TomerAberbach/get-all-files/blob/main/license) © [Tomer Aberbach](https://github.com/TomerAberbach)
