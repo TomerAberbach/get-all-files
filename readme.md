@@ -27,56 +27,51 @@ $ npm i get-all-files
 ## Usage
 
 ```js
-import getAllFiles from 'get-all-files'
+import { getAllFiles, getAllFilesSync } from 'get-all-files'
 
-// Get array of filenames synchronously
-console.log(getAllFiles.sync.array(`path/to/dir/or/file`))
-
-// Lazily iterate over filenames synchronously
-for (const filename of getAllFiles.sync(`path/to/dir/or/file`)) {
+// Lazily iterate over filenames asynchronously
+for await (const filename of getAllFiles(`path/to/dir/or/file`)) {
   // Could break early on some condition and get-all-files
   // won't have unnecessarily accumulated the filenames in an array
   console.log(filename)
 }
 
 // Get array of filenames asynchronously
-console.log(await getAllFiles.async.array(`path/to/dir/or/file`))
+console.log(await getAllFiles(`path/to/dir/or/file`).toArray())
 
-// Lazily iterate over filenames asynchronously
-for await (const filename of getAllFiles.async(`path/to/dir/or/file`)) {
+// Lazily iterate over filenames synchronously
+for (const filename of getAllFilesSync(`path/to/dir/or/file`)) {
   // Could break early on some condition and get-all-files
   // won't have unnecessarily accumulated the filenames in an array
   console.log(filename)
 }
+
+// Get array of filenames synchronously
+console.log(getAllFilesSync(`path/to/dir/or/file`).toArray())
 ```
 
 ## API
 
 ### Methods
 
-#### `getAllFiles.sync(path[, options])`
-
-Returns a lazy
-[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol)
-that iterates over the file paths recursively found at `path` in no particular
-order.
-
-#### `getAllFiles.sync.array(path[, options])`
-
-Returns a `string[]` of file paths recursively found at `path` in no particular
-ordering.
-
-#### `getAllFiles.async(path[, options])`
+#### `getAllFiles(path[, options])`
 
 Returns a lazy
 [async iterable/iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator)
 that asynchronously iterates over the file paths recursively found at `path` in
 no particular order.
 
-#### `getAllFiles.async.array(path[, options])`
+Calling `toArray` on the returned value returns a promise that resolves to an
+array of the file paths.
 
-Returns a `Promise<string[]>` of file paths recursively found at `path` in no
-particular ordering.
+#### `getAllFiles(path[, options])`
+
+Returns a lazy
+[iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol)
+that iterates over the file paths recursively found at `path` in no particular
+order.
+
+Calling `toArray` on the returned value returns an array of the file paths.
 
 ### Parameters
 
