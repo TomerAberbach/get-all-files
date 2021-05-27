@@ -3,14 +3,12 @@ import { sep, resolve } from 'path'
 
 const fa = fs.promises
 
-function normalizeOptions({
+const normalizeOptions = ({
   resolve = false,
   isExcludedDir = () => false
-} = {}) {
-  return { resolve, isExcludedDir }
-}
+} = {}) => ({ resolve, isExcludedDir })
 
-function normalizeDirname(dirname, options) {
+const normalizeDirname = (dirname, options) => {
   if (options.resolve === true) {
     dirname = resolve(dirname)
   }
@@ -22,35 +20,43 @@ function normalizeDirname(dirname, options) {
   return dirname
 }
 
-function* sync(filename, options) {
+export const getAllFilesSync = (filename, options) => {
   options = normalizeOptions(options)
 
-  if (!fs.lstatSync(filename).isDirectory()) {
-    return filename
+  const files = {
+    *[Symbol.iterator]() {
+      if (!fs.lstatSync(filename).isDirectory()) {
+        yield filename
+        return
+      }
+
+      yield* (function* walk(dirname) {
+        if (options.isExcludedDir(dirname)) {
+          return
+        }
+
+        for (const dirent of fs.readdirSync(dirname, { withFileTypes: true })) {
+          const filename = dirname + dirent.name
+
+          if (dirent.isDirectory()) {
+            yield* walk(filename + sep)
+          } else {
+            yield filename
+          }
+        }
+      })(normalizeDirname(filename, options))
+    },
+    toArray: () => [...files]
   }
 
-  yield* (function* walk(dirname) {
-    if (options.isExcludedDir(dirname)) {
-      return
-    }
-
-    for (const dirent of fs.readdirSync(dirname, { withFileTypes: true })) {
-      const filename = dirname + dirent.name
-
-      if (dirent.isDirectory()) {
-        yield* walk(filename + sep)
-      } else {
-        yield filename
-      }
-    }
-  })(normalizeDirname(filename, options))
+  return files
 }
-
-sync.array = (filename, options) => Array.from(sync(filename, options))
 
 function createNotifier() {
   let done = false
+  // eslint-disable-next-line no-empty-function
   let resolve = () => {}
+  // eslint-disable-next-line no-empty-function
   let reject = () => {}
   let notified = new Promise((pResolve, pReject) => {
     resolve = pResolve
@@ -95,6 +101,7 @@ function walk(dirnames, filenames, notifier, options) {
       continue
     }
 
+    // eslint-disable-next-line no-loop-func
     fs.readdir(dirname, { withFileTypes: true }, (error, dirents) => {
       if (error != null) {
         notifier.reject(error)
@@ -120,35 +127,38 @@ function walk(dirnames, filenames, notifier, options) {
   }
 }
 
-async function* async(filename, options) {
+export const getAllFiles = (filename, options) => {
   options = normalizeOptions(options)
 
-  if (!(await fa.lstat(filename)).isDirectory()) {
-    return filename
-  }
+  const files = {
+    async *[Symbol.asyncIterator]() {
+      if (!(await fa.lstat(filename)).isDirectory()) {
+        yield filename
+        return
+      }
 
-  const filenames = []
-  const notifier = createNotifier()
+      const filenames = []
+      const notifier = createNotifier()
 
-  walk([normalizeDirname(filename, options)], filenames, notifier, options)
+      walk([normalizeDirname(filename, options)], filenames, notifier, options)
 
-  do {
-    await notifier.onResolved()
-    while (filenames.length > 0) {
-      yield filenames.pop()
+      do {
+        await notifier.onResolved()
+        while (filenames.length > 0) {
+          yield filenames.pop()
+        }
+      } while (!notifier.done)
+    },
+    toArray: async () => {
+      const filenames = []
+
+      for await (const filename of files) {
+        filenames.push(filename)
+      }
+
+      return filenames
     }
-  } while (!notifier.done)
-}
-
-async.array = async (filename, options) => {
-  const iterator = async(filename, options)
-  const filenames = []
-
-  for await (const filename of iterator) {
-    filenames.push(filename)
   }
 
-  return filenames
+  return files
 }
-
-export default { async, sync }

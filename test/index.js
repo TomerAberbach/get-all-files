@@ -1,14 +1,13 @@
-import test from 'ava'
 import fs from 'fs'
-import { join } from 'path'
-import getAllFiles from '../lib/get-all-files'
+import test from 'ava'
+import { getAllFiles, getAllFilesSync } from '../src/index.js'
 
-const fixtures = join(__dirname, `fixtures`)
+const fixtures = `./test/fixtures`
 
 test(`sync finds 6 files`, t => {
   let count = 0
 
-  for (const filename of getAllFiles.sync(fixtures)) {
+  for (const filename of getAllFilesSync(fixtures)) {
     t.assert(fs.existsSync(filename))
     count++
   }
@@ -17,13 +16,13 @@ test(`sync finds 6 files`, t => {
 })
 
 test(`sync array finds 6 files`, t => {
-  t.is(getAllFiles.sync.array(fixtures).length, 6)
+  t.is(getAllFilesSync(fixtures).toArray().length, 6)
 })
 
 test(`async finds 6 files`, async t => {
   let count = 0
 
-  for await (const filename of getAllFiles.async(fixtures)) {
+  for await (const filename of getAllFiles(fixtures)) {
     await fs.promises.access(filename)
     count++
   }
@@ -32,5 +31,5 @@ test(`async finds 6 files`, async t => {
 })
 
 test(`async array finds 6 files`, async t => {
-  t.is((await getAllFiles.async.array(fixtures)).length, 6)
+  t.is((await getAllFiles(fixtures).toArray()).length, 6)
 })
