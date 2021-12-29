@@ -114,6 +114,7 @@ function walk(dirnames, filenames, notifier, options) {
 
   for (const dirname of dirnames) {
     if (options.isExcludedDir(dirname)) {
+      notifier.done = true
       continue
     }
 
