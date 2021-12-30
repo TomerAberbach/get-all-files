@@ -114,7 +114,7 @@ function walk(dirnames, filenames, notifier, options) {
 
   for (const dirname of dirnames) {
     if (options.isExcludedDir(dirname)) {
-      notifier.done = true
+      --pending
       continue
     }
 
@@ -146,7 +146,6 @@ function walk(dirnames, filenames, notifier, options) {
 
 export const getAllFiles = (filename, options) => {
   options = normalizeOptions(options)
-
   const files = {
     async *[Symbol.asyncIterator]() {
       if (!(await fa.lstat(filename)).isDirectory()) {
