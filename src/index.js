@@ -114,7 +114,7 @@ function walk(dirnames, filenames, notifier, options) {
 
   for (const dirname of dirnames) {
     if (options.isExcludedDir(dirname)) {
-      --pending
+      pending === 1 ? (notifier.done = true) : --pending
       continue
     }
 
