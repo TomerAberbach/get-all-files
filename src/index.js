@@ -110,13 +110,14 @@ function walk(dirnames, filenames, notifier, options) {
   }
 
   const children = []
-  let pending = dirnames.length
+  let pendingPromises = 0
 
   for (const dirname of dirnames) {
     if (options.isExcludedDir(dirname)) {
-      pending === 1 ? (notifier.done = true) : --pending
       continue
     }
+
+    pendingPromises++
 
     // eslint-disable-next-line no-loop-func
     fs.readdir(dirname, { withFileTypes: true }, (error, dirents) => {
@@ -137,10 +138,14 @@ function walk(dirnames, filenames, notifier, options) {
 
       notifier.resolve()
 
-      if (--pending === 0) {
+      if (--pendingPromises === 0) {
         walk(children, filenames, notifier, options)
       }
     })
+  }
+
+  if (pendingPromises === 0) {
+    notifier.done = true
   }
 }
 
