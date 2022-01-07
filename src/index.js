@@ -15,7 +15,7 @@
  */
 
 import fs from 'fs'
-import { sep, resolve } from 'path'
+import { sep, resolve, posix } from 'path'
 
 const fa = fs.promises
 
@@ -107,6 +107,8 @@ function walk(dirnames, filenames, notifier, options) {
   if (dirnames.length === 0) {
     notifier.done = true
     return
+  } else {
+    dirnames = dirnames.map((fileName) => fileName.split(sep).join(posix.sep);)
   }
 
   const children = []
