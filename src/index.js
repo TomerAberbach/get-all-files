@@ -33,6 +33,8 @@ const normalizeDirname = (dirname, options) => {
     dirname += sep
   }
 
+  dirname = dirName.split(sep).join(posix.sep)
+
   return dirname
 }
 
