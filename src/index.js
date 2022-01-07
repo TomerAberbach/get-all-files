@@ -108,7 +108,7 @@ function walk(dirnames, filenames, notifier, options) {
     notifier.done = true
     return
   } else {
-    dirnames = dirnames.map((fileName) => fileName.split(sep).join(posix.sep);)
+    dirnames = dirnames.map(fileName => fileName.split(sep).join(posix.sep))
   }
 
   const children = []
