@@ -17,14 +17,18 @@
 import fs from 'fs'
 import test from 'ava'
 import { getAllFiles, getAllFilesSync } from '../src/index.js'
+import { posix } from 'path'
 
-const fixtures = `./test/fixtures/`
-const fixturesBlahUnreal = `./test/fixtures/blah/unreal/`
+const fixtures = posix.normalize('./test/fixtures/')
+const fixturesBlahUnreal = posix.normalize('./test/fixtures/blah/unreal/')
 
 const isInList =
   (...dirs) =>
-  name =>
-    dirs.includes(name)
+  name => {
+    const normalizedDirs = dirs.map(dir => dir.replace(/\\/g, '/'))
+    const normalizedName = name.replace(/\\/g, '/')
+    return normalizedDirs.includes(normalizedName)
+  }
 
 const options = directoryList => ({
   isExcludedDir: isInList(directoryList),
@@ -64,7 +68,7 @@ test(`async array finds 6 files, excluding a directory`, async t => {
   t.is(
     (
       await getAllFiles(fixtures, {
-        isExcludedDir: isInList(`./test/fixtures/blah/unreal/woah/`),
+        isExcludedDir: isInList(`test/fixtures/blah/unreal/woah/`),
       }).toArray()
     ).length,
     6
@@ -75,7 +79,7 @@ test(`async array finds 2 files, excluding all directories with 2 files in the r
   t.is(
     (
       await getAllFiles(fixtures, {
-        isExcludedDir: isInList(`./test/fixtures/blah/`),
+        isExcludedDir: isInList(`test/fixtures/blah/`),
       }).toArray()
     ).length,
     2
@@ -87,8 +91,8 @@ test(`async array finds 0 files, excluding all directories and no files in the r
     (
       await getAllFiles(fixturesBlahUnreal, {
         isExcludedDir: isInList(
-          `./test/fixtures/blah/unreal/woah/`,
-          `./test/fixtures/blah/unreal/foo/`
+          'test/fixtures/blah/unreal/woah/',
+          'test/fixtures/blah/unreal/foo/'
         ),
       }).toArray()
     ).length,

@@ -15,7 +15,8 @@
  */
 
 import fs from 'fs'
-import { sep, resolve, posix } from 'path'
+
+import { sep, resolve, posix, join } from 'path'
 
 const fa = fs.promises
 
@@ -28,17 +29,11 @@ const normalizeDirname = (dirname, options) => {
   if (options.resolve === true) {
     dirname = resolve(dirname)
   }
-
-  if (dirname.length > 0 && dirname[dirname.length - 1] !== sep) {
-    dirname += sep
-  }
-
-  dirname = dirname.split(sep).join(posix.sep)
-
-  return dirname
+  return posix.normalize(dirname)
 }
 
 export const getAllFilesSync = (filename, options) => {
+  filename = posix.normalize(filename)
   options = normalizeOptions(options)
 
   const files = {
@@ -49,15 +44,16 @@ export const getAllFilesSync = (filename, options) => {
       }
 
       yield* (function* walk(dirname) {
+        dirname = posix.normalize(dirname)
         if (options.isExcludedDir(dirname)) {
           return
         }
 
         for (const dirent of fs.readdirSync(dirname, { withFileTypes: true })) {
-          const filename = dirname + dirent.name
+          const filename = join(dirname, posix.normalize(dirent.name))
 
           if (dirent.isDirectory()) {
-            yield* walk(filename + sep)
+            yield* walk(join(filename, sep))
           } else {
             yield filename
           }
@@ -72,9 +68,7 @@ export const getAllFilesSync = (filename, options) => {
 
 function createNotifier() {
   let done = false
-  // eslint-disable-next-line no-empty-function
   let resolve = () => {}
-  // eslint-disable-next-line no-empty-function
   let reject = () => {}
   let notified = new Promise((pResolve, pReject) => {
     resolve = pResolve
@@ -116,14 +110,14 @@ function walk(dirnames, filenames, notifier, options) {
   const children = []
   let pendingPromises = 0
 
-  for (const dirname of dirnames) {
+  for (let dirname of dirnames) {
+    dirname = posix.normalize(dirname)
     if (options.isExcludedDir(dirname)) {
       continue
     }
 
     pendingPromises++
 
-    // eslint-disable-next-line no-loop-func
     fs.readdir(dirname, { withFileTypes: true }, (error, dirents) => {
       if (error != null) {
         notifier.reject(error)
@@ -131,10 +125,9 @@ function walk(dirnames, filenames, notifier, options) {
       }
 
       for (const dirent of dirents) {
-        const filename = dirname + dirent.name
-
+        const filename = join(dirname, posix.normalize(dirent.name))
         if (dirent.isDirectory()) {
-          children.push(filename + sep)
+          children.push(join(filename, sep))
         } else {
           filenames.push(filename)
         }
@@ -154,6 +147,7 @@ function walk(dirnames, filenames, notifier, options) {
 }
 
 export const getAllFiles = (filename, options) => {
+  filename = posix.normalize(filename)
   options = normalizeOptions(options)
   const files = {
     async *[Symbol.asyncIterator]() {
@@ -184,6 +178,5 @@ export const getAllFiles = (filename, options) => {
       return filenames
     },
   }
-
   return files
 }
