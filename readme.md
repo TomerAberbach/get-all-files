@@ -64,7 +64,7 @@ no particular order.
 Calling `toArray` on the returned value returns a promise that resolves to an
 array of the file paths.
 
-#### `getAllFiles(path[, options])`
+#### `getAllFilesSync(path[, options])`
 
 Returns a lazy
 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)/[iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol)
