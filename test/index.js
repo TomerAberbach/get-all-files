@@ -17,10 +17,24 @@
 import fs from 'fs'
 import test from 'ava'
 import { getAllFiles, getAllFilesSync } from '../src/index.js'
+import { posix } from 'path'
 
-const fixtures = `./test/fixtures`
+const fixtures = posix.normalize('./test/fixtures/')
+const fixturesBlahUnreal = posix.normalize('./test/fixtures/blah/unreal/')
 
-test(`sync finds 6 files`, t => {
+const isInList =
+  (...dirs) =>
+  name => {
+    const normalizedDirs = dirs.map(dir => dir.replace(/\\/g, '/'))
+    const normalizedName = name.replace(/\\/g, '/')
+    return normalizedDirs.includes(normalizedName)
+  }
+
+const options = directoryList => ({
+  isExcludedDir: isInList(directoryList),
+})
+
+test(`sync finds 8 files`, t => {
   let count = 0
 
   for (const filename of getAllFilesSync(fixtures)) {
@@ -28,14 +42,14 @@ test(`sync finds 6 files`, t => {
     count++
   }
 
-  t.is(count, 6)
+  t.is(count, 8)
 })
 
-test(`sync array finds 6 files`, t => {
-  t.is(getAllFilesSync(fixtures).toArray().length, 6)
+test(`sync array finds 8 files`, t => {
+  t.is(getAllFilesSync(fixtures).toArray().length, 8)
 })
 
-test(`async finds 6 files`, async t => {
+test(`async finds 8 files`, async t => {
   let count = 0
 
   for await (const filename of getAllFiles(fixtures)) {
@@ -43,9 +57,45 @@ test(`async finds 6 files`, async t => {
     count++
   }
 
-  t.is(count, 6)
+  t.is(count, 8)
 })
 
-test(`async array finds 6 files`, async t => {
-  t.is((await getAllFiles(fixtures).toArray()).length, 6)
+test(`async array finds 8 files`, async t => {
+  t.is((await getAllFiles(fixtures).toArray()).length, 8)
+})
+
+test(`async array finds 6 files, excluding a directory`, async t => {
+  t.is(
+    (
+      await getAllFiles(fixtures, {
+        isExcludedDir: isInList(`test/fixtures/blah/unreal/woah/`),
+      }).toArray()
+    ).length,
+    6
+  )
+})
+
+test(`async array finds 2 files, excluding all directories with 2 files in the root folder`, async t => {
+  t.is(
+    (
+      await getAllFiles(fixtures, {
+        isExcludedDir: isInList(`test/fixtures/blah/`),
+      }).toArray()
+    ).length,
+    2
+  )
+})
+
+test(`async array finds 0 files, excluding all directories and no files in the root folder`, async t => {
+  t.is(
+    (
+      await getAllFiles(fixturesBlahUnreal, {
+        isExcludedDir: isInList(
+          'test/fixtures/blah/unreal/woah/',
+          'test/fixtures/blah/unreal/foo/'
+        ),
+      }).toArray()
+    ).length,
+    0
+  )
 })
