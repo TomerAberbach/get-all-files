@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-export type Options = {
+type Options = {
   resolve?: boolean
   isExcludedDir?: (dirname: string) => boolean
 }
 
-export type Filenames = {
+type Filenames = {
   [Symbol.asyncIterator]: () => AsyncIterator<string>
-  toArray: () => Promise<Array<string>>
+  toArray: () => Promise<string[]>
 }
 
-export const getAllFiles: (filename: string, options?: Options) => Filenames
+declare const getAllFiles: (filename: string, options?: Options) => Filenames
 
-export type FilenamesSync = {
+type FilenamesSync = {
   [Symbol.iterator]: () => Iterator<string>
-  toArray: () => Array<string>
+  toArray: () => string[]
 }
 
-export const getAllFilesSync: (
+declare const getAllFilesSync: (
   filename: string,
   options?: Options,
 ) => FilenamesSync
+
+export type { Filenames, FilenamesSync, Options }
+export { getAllFiles, getAllFilesSync }

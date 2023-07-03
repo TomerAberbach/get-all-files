@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import fs from 'fs'
-import { sep, resolve } from 'path'
+import { resolve, sep } from 'path'
 
 const fa = fs.promises
 
@@ -68,11 +67,11 @@ export const getAllFilesSync = (filename, options) => {
   return files
 }
 
-function createNotifier() {
+const createNotifier = () => {
   let done = false
-  // eslint-disable-next-line no-empty-function
+  // eslint-disable-next-line no-empty-function, unicorn/consistent-function-scoping
   let resolve = () => {}
-  // eslint-disable-next-line no-empty-function
+  // eslint-disable-next-line no-empty-function, unicorn/consistent-function-scoping
   let reject = () => {}
   let notified = new Promise((pResolve, pReject) => {
     resolve = pResolve
@@ -80,7 +79,7 @@ function createNotifier() {
   })
 
   return {
-    resolve() {
+    resolve: () => {
       const oldResolve = resolve
       notified = new Promise((pResolve, pReject) => {
         resolve = pResolve
@@ -88,22 +87,20 @@ function createNotifier() {
       })
       oldResolve()
     },
-    reject(error) {
-      reject(error)
-    },
+    reject: error => reject(error),
+    // eslint-disable-next-line no-restricted-syntax
     get done() {
       return done
     },
+    // eslint-disable-next-line no-restricted-syntax
     set done(value) {
       done = value
     },
-    onResolved() {
-      return notified
-    },
+    onResolved: () => notified,
   }
 }
 
-function walk(dirnames, filenames, notifier, options) {
+const walk = (dirnames, filenames, notifier, options) => {
   if (dirnames.length === 0) {
     notifier.done = true
     return
