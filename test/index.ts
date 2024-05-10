@@ -4,62 +4,110 @@ import { getAllFiles, getAllFilesSync } from '../src/index.ts'
 
 const fixtures = `./test/fixtures`
 
-test(`sync finds 6 files`, () => {
-  let count = 0
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `sync finds file - %p`,
+  options => {
+    let count = 0
 
-  for (const filename of getAllFilesSync(fixtures)) {
-    expect(existsSync(filename)).toBeTrue()
-    count++
-  }
+    for (const filename of getAllFilesSync(`${fixtures}/wow`, options)) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
 
-  expect(count).toBe(6)
-})
+    expect(count).toBe(1)
+  },
+)
 
-test(`sync with filter finds 5 files`, () => {
-  let count = 0
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `sync finds 6 files - %p`,
+  options => {
+    let count = 0
 
-  for (const filename of getAllFilesSync(fixtures, {
-    isExcludedDir: path => path.endsWith(`sort of real/`),
-  })) {
-    expect(existsSync(filename)).toBeTrue()
-    count++
-  }
+    for (const filename of getAllFilesSync(fixtures, options)) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
 
-  expect(count).toBe(5)
-})
+    expect(count).toBe(6)
+  },
+)
 
-test(`sync array finds 6 files`, () => {
-  const files = getAllFilesSync(fixtures)
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `sync with filter finds 5 files - %p`,
+  options => {
+    let count = 0
 
-  expect(files.toArray()).toHaveLength(6)
-})
+    for (const filename of getAllFilesSync(fixtures, {
+      isExcludedDir: path => path.endsWith(`sort of real/`),
+      ...options,
+    })) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
 
-test(`async with filter finds 5 files`, async () => {
-  let count = 0
+    expect(count).toBe(5)
+  },
+)
 
-  for await (const filename of getAllFiles(fixtures, {
-    isExcludedDir: path => path.endsWith(`sort of real/`),
-  })) {
-    expect(existsSync(filename)).toBeTrue()
-    count++
-  }
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `sync array finds 6 files - resolve %p`,
+  options => {
+    const files = getAllFilesSync(fixtures, options)
 
-  expect(count).toBe(5)
-})
+    expect(files.toArray()).toHaveLength(6)
+  },
+)
 
-test(`async finds 6 files`, async () => {
-  let count = 0
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `async finds file - %p`,
+  async options => {
+    let count = 0
 
-  for await (const filename of getAllFiles(fixtures)) {
-    expect(existsSync(filename)).toBeTrue()
-    count++
-  }
+    for await (const filename of getAllFiles(`${fixtures}/wow`, options)) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
 
-  expect(count).toBe(6)
-})
+    expect(count).toBe(1)
+  },
+)
 
-test(`async array finds 6 files`, async () => {
-  const files = getAllFiles(fixtures)
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `async with filter finds 5 files - %p`,
+  async options => {
+    let count = 0
 
-  expect(await files.toArray()).toHaveLength(6)
-})
+    for await (const filename of getAllFiles(fixtures, {
+      isExcludedDir: path => path.endsWith(`sort of real/`),
+      ...options,
+    })) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
+
+    expect(count).toBe(5)
+  },
+)
+
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `async finds 6 files - resolve %p`,
+  async options => {
+    let count = 0
+
+    for await (const filename of getAllFiles(fixtures, options)) {
+      expect(existsSync(filename)).toBeTrue()
+      count++
+    }
+
+    expect(count).toBe(6)
+  },
+)
+
+test.each([undefined, { resolve: true }, { resolve: false }])(
+  `async array finds 6 files - resolve %p`,
+  async options => {
+    const files = getAllFiles(fixtures, options)
+
+    expect(await files.toArray()).toHaveLength(6)
+  },
+)
