@@ -1,13 +1,24 @@
 {
   "name": "get-all-files",
-  "version": "0.0.0",
+  "version": "4.1.0",
   "author": {
     "name": "Tomer Aberbach",
     "email": "tomeraberbach@gmail.com",
     "url": "https://tomeraberba.ch"
   },
   "description": "A blazing fast recursive directory crawler with lazy sync and async iterator support.",
-  "keywords": [],
+  "keywords": [
+    "fs",
+    "recursive",
+    "readdir",
+    "path",
+    "directory",
+    "files",
+    "lazy",
+    "async",
+    "iterator",
+    "iterable"
+  ],
   "homepage": "https://github.com/TomerAberbach/get-all-files",
   "repository": "TomerAberbach/get-all-files",
   "bugs": {
