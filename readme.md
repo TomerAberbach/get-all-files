@@ -4,13 +4,10 @@
 
 <div align="center">
   <a href="https://npmjs.org/package/get-all-files">
-    <img src="https://badgen.now.sh/npm/v/get-all-files" alt="version" />
+    <img src="https://badgen.net/npm/v/get-all-files" alt="version" />
   </a>
   <a href="https://github.com/TomerAberbach/get-all-files/actions">
     <img src="https://github.com/TomerAberbach/get-all-files/workflows/CI/badge.svg" alt="CI" />
-  </a>
-  <a href="https://bundlephobia.com/result?p=get-all-files">
-    <img src="https://badgen.net/bundlephobia/minzip/get-all-files" alt="minzip size" />
   </a>
 </div>
 

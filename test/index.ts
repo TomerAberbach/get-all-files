@@ -1,21 +1,6 @@
-/**
- * Copyright 2021 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-import fs from 'fs'
-import 'tomer'
-import { getAllFiles, getAllFilesSync } from '../src/index.js'
+import { existsSync } from 'node:fs'
+import { test } from 'tomer'
+import { getAllFiles, getAllFilesSync } from '../src/index.ts'
 
 const fixtures = `./test/fixtures`
 
@@ -23,11 +8,24 @@ test(`sync finds 6 files`, () => {
   let count = 0
 
   for (const filename of getAllFilesSync(fixtures)) {
-    expect(fs.existsSync(filename)).toBeTrue()
+    expect(existsSync(filename)).toBeTrue()
     count++
   }
 
   expect(count).toBe(6)
+})
+
+test(`sync with filter finds 5 files`, () => {
+  let count = 0
+
+  for (const filename of getAllFilesSync(fixtures, {
+    isExcludedDir: path => path.endsWith(`sort of real/`),
+  })) {
+    expect(existsSync(filename)).toBeTrue()
+    count++
+  }
+
+  expect(count).toBe(5)
 })
 
 test(`sync array finds 6 files`, () => {
@@ -36,11 +34,24 @@ test(`sync array finds 6 files`, () => {
   expect(files.toArray()).toHaveLength(6)
 })
 
+test(`async with filter finds 5 files`, async () => {
+  let count = 0
+
+  for await (const filename of getAllFiles(fixtures, {
+    isExcludedDir: path => path.endsWith(`sort of real/`),
+  })) {
+    expect(existsSync(filename)).toBeTrue()
+    count++
+  }
+
+  expect(count).toBe(5)
+})
+
 test(`async finds 6 files`, async () => {
   let count = 0
 
   for await (const filename of getAllFiles(fixtures)) {
-    await fs.promises.access(filename)
+    expect(existsSync(filename)).toBeTrue()
     count++
   }
 
