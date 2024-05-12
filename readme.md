@@ -7,7 +7,7 @@
     <img src="https://badgen.net/npm/v/get-all-files" alt="version" />
   </a>
   <a href="https://github.com/TomerAberbach/get-all-files/actions">
-    <img src="https://github.com/TomerAberbach/get-all-files/workflows/CI/badge.svg" alt="CI" />
+    <img src="https://github.com/TomerAberbach/get-all-files/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
 </div>
 
