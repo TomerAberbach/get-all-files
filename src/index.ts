@@ -80,7 +80,6 @@ export const getAllFiles = (filename: string, options?: Options): Filenames => {
 
       void walk(normalizeDirname(filename, normalizedOptions))
 
-      // eslint-disable-next-line typescript/no-unnecessary-condition
       while (true) {
         await Promise.race(promises)
 

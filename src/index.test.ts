@@ -1,8 +1,9 @@
 import { existsSync } from 'node:fs'
-import { test } from 'tomer'
-import { getAllFiles, getAllFilesSync } from '../src/index.ts'
+import { test } from '@fast-check/vitest'
+import { expect } from 'vitest'
+import { getAllFiles, getAllFilesSync } from './index.ts'
 
-const fixtures = `./test/fixtures`
+const fixtures = `./src/fixtures`
 
 test.each([undefined, { resolve: true }, { resolve: false }])(
   `sync finds file - %p`,
