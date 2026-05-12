@@ -1,3 +1,11 @@
+> [!IMPORTANT]
+>
+> DEPRECATED: Use
+> [`fs.readdir`](https://nodejs.org/api/fs.html#fspromisesreaddirpath-options)
+> and
+> [`fs.readdirSync`](https://nodejs.org/api/fs.html#fsreaddirsyncpath-options)
+> with the `recursive: true` option instead (since Node v18.17.0).
+
 <h1 align="center">
   get-all-files
 </h1>
